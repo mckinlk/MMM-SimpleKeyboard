@@ -13,6 +13,9 @@
       "SimpleKeyboard",
       "Keyboard"
     ],
+    "dependencies": {
+      "simple-keyboard" : "latest"
+    },    
     "author": "tjat84",
     "license": "MIT",
     "bugs": {
