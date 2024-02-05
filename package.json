@@ -5,7 +5,7 @@
     "main": "MMM-SimpleKeyboard.js",
     "repository": {
       "type": "git",
-      "url": "git+https://github.com/mckinlk/MMM-SimpleKeyboard.git"
+      "url": "git+https://github.com/tjat84/MMM-SimpleKeyboard.git"
     },
     "keywords": [
       "MM",
@@ -16,7 +16,7 @@
     "author": "tjat84",
     "license": "MIT",
     "bugs": {
-      "url": "https://github.com/mckinlk/MMM-SimpleKeyboard/issues"
+      "url": "https://github.com/tjat84/MMM-SimpleKeyboard/issues"
     },
-    "homepage": "https://github.com/mckinlk/MMM-SimpleKeyboard#readme"
+    "homepage": "https://github.com/tjat84/MMM-SimpleKeyboard#readme"
   }
