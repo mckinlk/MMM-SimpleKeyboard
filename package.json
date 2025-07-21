@@ -1,0 +1,25 @@
+{
+    "name": "mmm-simplekeyboard",
+    "version": "1.4.0",
+    "description": "Integrates the public-use Simple Keyboard into Magic Mirror",
+    "main": "MMM-SimpleKeyboard.js",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/tjat84/MMM-SimpleKeyboard.git"
+    },
+    "keywords": [
+      "MM",
+      "MagicMirror",
+      "SimpleKeyboard",
+      "Keyboard"
+    ],
+    "dependencies": {
+      "simple-keyboard" : "latest"
+    },    
+    "author": "tjat84",
+    "license": "MIT",
+    "bugs": {
+      "url": "https://github.com/tjat84/MMM-SimpleKeyboard/issues"
+    },
+    "homepage": "https://github.com/tjat84/MMM-SimpleKeyboard#readme"
+  }
