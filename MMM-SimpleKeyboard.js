@@ -16,10 +16,7 @@ Module.register("MMM-SimpleKeyboard", {
     start: function() {
         this.keyboardVisible = false;
     },
-handleBackspace: function(input) {
-    // Remove last character from the input
-    return input.slice(0, -1);
-},
+
 
 getDom: function() {
     let wrapper = document.createElement("div");
@@ -42,7 +39,8 @@ initializeKeyboard: function(keyboardDiv) {
     console.log("Initializing keyboard...");
     keyboardDiv.style.display = "block";
 
-    let existingValue = document.getElementById('eventTitle').value || "";
+    let inputField = this.activeInputId ? document.getElementById(this.activeInputId) : document.getElementById('eventTitle');
+    let existingValue = inputField ? inputField.value : "";
 
     // Destroy the existing keyboard instance if it exists
     if (this.keyboard) {
@@ -119,6 +117,7 @@ bindEventListeners: function() {
         notificationReceived: function(notification, payload, sender) {
         if (notification === "SHOW_KEYBOARD") {
             this.keyboardVisible = true;
+            this.activeInputId = payload && payload.inputId ? payload.inputId : 'eventTitle';
             this.updateDom();
         }
         
@@ -139,35 +138,37 @@ if (notification === 'FORM_CLOSED') {
     },
 
     handleInput: function(input) {
-        let inputField = document.getElementById('eventTitle'); // Assuming 'eventTitle' is the ID of your input field
+        let inputField = this.activeInputId ? document.getElementById(this.activeInputId) : document.getElementById('eventTitle');
         if(inputField) {
             inputField.value = input;
         }
     },
 
     handleKeyPress: function(button) {
-        let inputField = document.getElementById('eventTitle'); // Assuming 'eventTitle' is the ID of your input field
-    
-        if (button === "{bksp}") {
-            // Handle backspace key press
-            let currentInput = inputField.value;
-            inputField.value = currentInput.slice(0, -1); // Remove the last character from the input
-        } else if (button === "{shift}" || button === "{lock}") {
-            // Handle shift or lock key press
-            let currentLayout = this.keyboard.options.layoutName;
-            let shiftToggle = currentLayout === "default" ? "shift" : "default";
-            this.keyboard.setOptions({
-                layoutName: shiftToggle
-            });
-            this.shiftPressed = button === "{shift}"; // Set or reset the flag based on whether shift was pressed
-        } else {
-            // Handle all other key presses
-            if (this.shiftPressed) {
-                // Revert back to default layout if shift was previously pressed
+        let inputField = this.activeInputId ? document.getElementById(this.activeInputId) : document.getElementById('eventTitle');
+
+        if (inputField) {
+            if (button === "{bksp}") {
+                // Handle backspace key press
+                let currentInput = inputField.value;
+                inputField.value = currentInput.slice(0, -1); // Remove the last character from the input
+            } else if (button === "{shift}" || button === "{lock}") {
+                // Handle shift or lock key press
+                let currentLayout = this.keyboard.options.layoutName;
+                let shiftToggle = currentLayout === "default" ? "shift" : "default";
                 this.keyboard.setOptions({
-                    layoutName: "default"
+                    layoutName: shiftToggle
                 });
-                this.shiftPressed = false;  // Reset the shift flag
+                this.shiftPressed = button === "{shift}"; // Set or reset the flag based on whether shift was pressed
+            } else {
+                // Handle all other key presses
+                if (this.shiftPressed) {
+                    // Revert back to default layout if shift was previously pressed
+                    this.keyboard.setOptions({
+                        layoutName: "default"
+                    });
+                    this.shiftPressed = false;  // Reset the shift flag
+                }
             }
         }
     }
